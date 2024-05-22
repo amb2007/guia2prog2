@@ -1,24 +1,26 @@
 import pyperclip, requests, webbrowser, sys
 from bs4 import BeautifulSoup
 
+def urls():
+    sig= soup.find('a', {'class' : 'next'})
+    url = sig.get('href')#consigo el href de el art
+    return(url)
+def arts(soup):
+    lista.extend(soup.find_all('article'))#no se porque me devuelve que el soup es = a noneType
+    return lista#consigo y devuelvo todos los articulos de la pag
+cont = 0
 paste = pyperclip.paste()
-
 while True:
     folder = pyperclip.paste()
     if folder != paste :
-        print(folder)
-        break
-data = requests.get(folder)
-soup = BeautifulSoup(data.text, 'html.parser')
-nums = soup.find_all( 'a',  href=True)
-res = []
-for tag in nums:
-    res.append(tag.get("href"))
-print(res)
+        lista = []
+        for cont in range(5):#bucle hasta 5
+            data = requests.get(folder)
+            soup = BeautifulSoup(data.text, 'html.parser')
+            arts(soup)
+            folder=urls()
 
-#for tag in tags:
-    #print('____________________________________________________________________')
-    #print(tag.gets("href"))
 
-    #href = tag.get("href")
-    #print(href)
+
+
+
